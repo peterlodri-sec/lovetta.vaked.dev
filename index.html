@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lovetta Lane — Sovereign Key Checkout</title>
+  <style>
+    /* Theme: Botanical Garden */
+    :root {
+      --fern: #4a7c59;
+      --marigold: #f9a620;
+      --terracotta: #b7472a;
+      --cream: #f5f3ed;
+      --glass: rgba(245, 243, 237, 0.85);
+    }
+    
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--fern);
+      color: var(--cream);
+      font-family: "DejaVu Sans", -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-image: radial-gradient(circle at top right, rgba(249, 166, 32, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at bottom left, rgba(183, 71, 42, 0.2) 0%, transparent 50%);
+    }
+
+    h1, h2, h3 {
+      font-family: "DejaVu Serif", serif;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      padding: 3rem;
+      text-align: center;
+    }
+
+    .card {
+      background: var(--glass);
+      color: #2d3748;
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      margin-top: 2rem;
+      border: 1px solid rgba(249, 166, 32, 0.3);
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      color: rgba(245, 243, 237, 0.8);
+      margin-top: 1rem;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .card h2 {
+      color: var(--fern);
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .price {
+      font-size: 3rem;
+      color: var(--terracotta);
+      font-family: "DejaVu Serif", serif;
+      font-weight: bold;
+      margin: 1.5rem 0;
+    }
+
+    .perks {
+      text-align: left;
+      margin: 2rem auto;
+      max-width: 400px;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .perks li {
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(74, 124, 89, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+    }
+
+    .perks li::before {
+      content: "✦";
+      color: var(--marigold);
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--terracotta);
+      color: var(--cream);
+      text-decoration: none;
+      padding: 1.2rem 3rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-family: "DejaVu Sans", sans-serif;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(183, 71, 42, 0.3);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .btn:hover {
+      background: #9c3c23;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(183, 71, 42, 0.4);
+    }
+
+    .crypto-option {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #718096;
+    }
+    
+    .crypto-option a {
+      color: var(--fern);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Lovetta Lane</h1>
+    <div class="subtitle">The gateway to the Constellation. One cryptographic key to unlock God Mode across the entire vaked.dev ecosystem.</div>
+
+    <div class="card">
+      <h2>Sovereign Key</h2>
+      <p>Offline Ed25519 Token Validation</p>
+      
+      <div class="price">$150 <span style="font-size:1.2rem; color:#718096; font-weight:normal;">/ lifetime</span></div>
+
+      <ul class="perks">
+        <li>Vaked IDE — Full Entheai God Mode</li>
+        <li>AxiomQuant — VIP Algorithmic Tools</li>
+        <li>Music.vaked.dev — 24-bit Master Stems</li>
+        <li>Portail API — Unrestricted LLM Inference</li>
+      </ul>
+
+      <a href="#checkout" class="btn">Mint Your Key</a>
+
+      <div class="crypto-option">
+        Also accepting Web3 payments via MetaMask (USDC/ETH/MATIC) or <a href="#xmr">Monero (XMR)</a> directly to the Constellation Treasury.
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
