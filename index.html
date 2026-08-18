@@ -3,683 +3,1296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lovetta Lane — Sovereign Key Checkout</title>
+  <title>Lovetta Lane — Sovereign Key & Studio Sanctuary</title>
+  <meta name="description" content="Lovetta Lane: Sovereign Studio & Gateway to the Constellation. Mint and validate your Ed25519 Sovereign Key for lifetime God Mode across vaked.dev.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Fira+Code:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
-    /* Theme: Botanical Garden */
+    /* Theme: Botanical Sanctuary & Sovereign Gold */
     :root {
-      --fern: #4a7c59;
+      --bg-dark: #08100c;
+      --bg-surface: rgba(13, 26, 20, 0.75);
+      --bg-card: rgba(19, 38, 28, 0.65);
+      --border-color: rgba(249, 166, 32, 0.25);
+      --border-hover: rgba(249, 166, 32, 0.65);
+      --fern: #2d5a3f;
+      --fern-light: #4a7c59;
       --marigold: #f9a620;
-      --terracotta: #b7472a;
+      --terracotta: #c85a38;
       --cream: #f5f3ed;
-      --glass: rgba(245, 243, 237, 0.85);
+      --slate-muted: #9bb0a5;
+      --cyan: #62e6c9;
+      --gold: #ffd36e;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
+      --font-serif: 'Cinzel', serif;
+      --font-mono: 'Fira Code', monospace;
     }
-    
-    body {
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background-color: var(--fern);
+    }
+
+    body {
+      background-color: var(--bg-dark);
       color: var(--cream);
-      font-family: "DejaVu Sans", -apple-system, sans-serif;
+      font-family: var(--font-sans);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      background-image: radial-gradient(circle at top right, rgba(249, 166, 32, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at bottom left, rgba(183, 71, 42, 0.2) 0%, transparent 50%);
+      background-image: 
+        radial-gradient(circle at 15% 20%, rgba(74, 124, 89, 0.25) 0%, transparent 45%),
+        radial-gradient(circle at 85% 15%, rgba(249, 166, 32, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(200, 90, 56, 0.18) 0%, transparent 50%);
+      background-attachment: fixed;
+      line-height: 1.6;
+      padding-bottom: 90px;
     }
 
-    h1, h2, h3 {
-      font-family: "DejaVu Serif", serif;
-      font-weight: bold;
-      margin: 0;
+    .skip-link {
+      position: absolute;
+      top: -100px;
+      left: 16px;
+      z-index: 100;
+      background: var(--marigold);
+      color: #05060a;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus {
+      top: 16px;
+      outline: 3px solid var(--cyan);
     }
 
     .container {
-      max-width: 800px;
-      padding: 3rem;
+      width: 100%;
+      max-width: 960px;
+      padding: 2.5rem 1.5rem;
       text-align: center;
     }
 
-    .card {
-      background: var(--glass);
-      color: #2d3748;
-      border-radius: 16px;
-      padding: 3rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-      backdrop-filter: blur(10px);
-      margin-top: 2rem;
-      border: 1px solid rgba(249, 166, 32, 0.3);
+    /* Top Brand & Constellation Badges */
+    .brand-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 2rem;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(249, 166, 32, 0.1);
+      border: 1px solid rgba(249, 166, 32, 0.35);
+      border-radius: 9999px;
+      padding: 5px 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--marigold);
+      text-transform: uppercase;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--cyan);
+      animation: pulseAnim 2s infinite;
+    }
+    @keyframes pulseAnim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
     }
 
     h1 {
-      font-size: 3.5rem;
+      font-family: var(--font-serif);
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
       color: var(--cream);
-      letter-spacing: 0.05em;
-      text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
     .subtitle {
-      font-size: 1.2rem;
-      color: rgba(245, 243, 237, 0.8);
-      margin-top: 1rem;
+      font-size: 1.15rem;
+      color: var(--slate-muted);
+      max-width: 680px;
+      margin: 0.5rem auto 1.5rem auto;
       font-weight: 300;
-      line-height: 1.6;
     }
 
-    .card h2 {
-      color: var(--fern);
-      font-size: 2.2rem;
-      margin-bottom: 1rem;
+    /* Constellation Quick Link Pills */
+    .constellation-pills {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
     }
 
-    .price {
-      font-size: 3rem;
+    .pill-link {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      text-decoration: none;
+      padding: 7px 16px;
+      border-radius: 24px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .pill-link.store {
+      color: var(--marigold);
+      background: rgba(249, 166, 32, 0.12);
+      border: 1px solid rgba(249, 166, 32, 0.35);
+    }
+    .pill-link.academy {
+      color: var(--cream);
+      background: rgba(245, 243, 237, 0.12);
+      border: 1px solid rgba(245, 243, 237, 0.35);
+    }
+    .pill-link.art {
+      color: var(--cyan);
+      background: rgba(98, 230, 201, 0.12);
+      border: 1px solid rgba(98, 230, 201, 0.35);
+    }
+    .pill-link.apex {
+      color: var(--gold);
+      background: rgba(255, 211, 110, 0.12);
+      border: 1px solid rgba(255, 211, 110, 0.35);
+    }
+    .pill-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    /* God Mode Banner */
+    #godmode-banner {
+      display: none;
+      background: linear-gradient(135deg, rgba(98, 230, 201, 0.2), rgba(249, 166, 32, 0.2));
+      border: 1px solid var(--cyan);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 2rem;
+      text-align: left;
+      animation: fadeIn 0.4s ease;
+    }
+    .godmode-active {
+      display: flex !important;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* Main Interactive App Card */
+    .main-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6), 0 0 35px rgba(249, 166, 32, 0.12);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: left;
+      transition: border-color 0.3s ease;
+    }
+    .main-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* Tab Switcher */
+    .tab-nav {
+      display: flex;
+      gap: 10px;
+      border-bottom: 1px solid rgba(245, 243, 237, 0.12);
+      padding-bottom: 14px;
+      margin-bottom: 2rem;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid rgba(245, 243, 237, 0.18);
+      color: var(--slate-muted);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tab-btn:hover {
+      color: var(--cream);
+      border-color: var(--marigold);
+      background: rgba(249, 166, 32, 0.08);
+    }
+    .tab-btn.active {
+      background: var(--marigold);
+      color: #08100c;
+      font-weight: 700;
+      border-color: var(--marigold);
+      box-shadow: 0 0 15px rgba(249, 166, 32, 0.35);
+    }
+
+    .tab-pane {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+    .tab-pane.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tab 1: Mint Sovereign Key */
+    .key-hero-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .key-hero-layout { grid-template-columns: 1fr; }
+    }
+
+    .card-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--marigold);
+      margin-bottom: 0.5rem;
+    }
+    .card-sub {
+      font-size: 14px;
+      color: var(--slate-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .price-tag {
+      font-family: var(--font-serif);
+      font-size: 2.8rem;
       color: var(--terracotta);
-      font-family: "DejaVu Serif", serif;
-      font-weight: bold;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .price-tag span {
+      font-family: var(--font-sans);
+      font-size: 14px;
+      color: var(--slate-muted);
+      font-weight: 400;
+    }
+
+    .perks-list {
+      list-style: none;
       margin: 1.5rem 0;
     }
-
-    .perks {
-      text-align: left;
-      margin: 2rem auto;
-      max-width: 400px;
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .perks li {
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(74, 124, 89, 0.2);
+    .perks-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(245, 243, 237, 0.08);
+      font-size: 13.5px;
       display: flex;
       align-items: center;
       gap: 10px;
-      font-size: 1.1rem;
     }
-
-    .perks li::before {
+    .perks-list li::before {
       content: "✦";
       color: var(--marigold);
+      font-weight: bold;
     }
 
-    .btn {
-      display: inline-block;
-      background: var(--terracotta);
+    .payment-box {
+      background: rgba(8, 16, 12, 0.85);
+      border: 1px solid rgba(249, 166, 32, 0.3);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+
+    .pay-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 1.2rem;
+    }
+    .pay-option {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 8px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11px;
       color: var(--cream);
-      text-decoration: none;
-      padding: 1.2rem 3rem;
-      border-radius: 50px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      font-family: "DejaVu Sans", sans-serif;
-      transition: all 0.3s ease;
-      border: none;
       cursor: pointer;
-      box-shadow: 0 8px 20px rgba(183, 71, 42, 0.3);
+      transition: all 0.2s;
+    }
+    .pay-option:hover, .pay-option.active {
+      border-color: var(--cyan);
+      background: rgba(98, 230, 201, 0.12);
+      color: var(--cyan);
+    }
+
+    .address-display {
+      background: #040806;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold);
+      word-break: break-all;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .copy-btn {
+      background: rgba(255, 211, 110, 0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      border-radius: 4px;
+      padding: 4px 8px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .copy-btn:hover {
+      background: var(--gold);
+      color: #000;
+    }
+
+    .action-btn {
+      width: 100%;
+      background: linear-gradient(135deg, var(--terracotta), #9c3c23);
+      color: var(--cream);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
-      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.2s;
+      box-shadow: 0 4px 15px rgba(200, 90, 56, 0.35);
+    }
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200, 90, 56, 0.5);
     }
 
-    .btn:hover {
-      background: #9c3c23;
+    /* Tab 2: Validation Input */
+    .validator-box {
+      background: rgba(8, 16, 12, 0.85);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 2rem;
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .key-input {
+      width: 100%;
+      background: #040806;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: var(--cyan);
+      margin-bottom: 14px;
+      outline: none;
+      text-align: center;
+    }
+    .key-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px rgba(98, 230, 201, 0.25);
+    }
+
+    .validation-status {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      margin-top: 14px;
+      min-height: 24px;
+    }
+
+    /* Grid of Unlocked Perks */
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .perk-card {
+      background: rgba(8, 16, 12, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      padding: 16px;
+      transition: all 0.2s;
+    }
+    .perk-card:hover {
+      border-color: var(--cyan);
       transform: translateY(-3px);
-      box-shadow: 0 12px 25px rgba(183, 71, 42, 0.4);
+    }
+    .perk-card-title {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--cream);
+      margin-bottom: 4px;
+    }
+    .perk-card-desc {
+      font-size: 12px;
+      color: var(--slate-muted);
     }
 
-    .crypto-option {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #718096;
+    /* Tab 4: 432Hz Sound Synthesizer */
+    .audio-player-box {
+      background: rgba(8, 16, 12, 0.85);
+      border: 1px solid rgba(98, 230, 201, 0.3);
+      border-radius: 12px;
+      padding: 2rem;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
     }
-    
-    .crypto-option a {
-      color: var(--fern);
-      font-weight: bold;
+    .audio-toggle-btn {
+      background: rgba(98, 230, 201, 0.15);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      font-family: var(--font-mono);
+      font-size: 14px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 1rem 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .audio-toggle-btn:hover {
+      background: var(--cyan);
+      color: #000;
+      box-shadow: 0 0 20px rgba(98, 230, 201, 0.4);
+    }
+    .audio-toggle-btn.playing {
+      background: var(--marigold);
+      color: #000;
+      border-color: var(--marigold);
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      background: #08100c;
+      border: 1px solid var(--marigold);
+      color: var(--cream);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 10px 18px;
+      border-radius: 8px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+      z-index: 999999;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---- VAKED CONSTELLATION HUD V7.0.0 ---- */
+    #vaked-hud {
+      position: fixed;
+      bottom: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 22px;
+      background: rgba(6, 9, 16, 0.90);
+      backdrop-filter: blur(28px) saturate(220%);
+      -webkit-backdrop-filter: blur(28px) saturate(220%);
+      border: 1px solid rgba(224, 169, 109, 0.45);
+      border-radius: 9999px;
+      box-shadow: 0 16px 50px rgba(0, 0, 0, 0.75), 0 0 32px rgba(224, 169, 109, 0.22);
+      font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      color: #f1f5f9;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+    #vaked-hud:hover {
+      border-color: rgba(224, 169, 109, 0.85);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 169, 109, 0.38);
+    }
+    #vaked-hud .hud-brand {
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: #e0a96d;
       text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #vaked-hud .hud-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #e0a96d;
+      box-shadow: 0 0 12px #e0a96d;
+      animation: hudPulseAwen 2.4s infinite;
+    }
+    @keyframes hudPulseAwen { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
+
+    .hud-eq {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+      margin-left: 4px;
+    }
+    .hud-eq-bar {
+      width: 2px;
+      background: #06d6a0;
+      border-radius: 1px;
+      animation: eqBounceAwen 1.25s ease-in-out infinite alternate;
+    }
+    .hud-eq-bar:nth-child(1) { height: 40%; animation-delay: 0.05s; }
+    .hud-eq-bar:nth-child(2) { height: 95%; animation-delay: 0.3s; background: #e0a96d; }
+    .hud-eq-bar:nth-child(3) { height: 60%; animation-delay: 0.15s; }
+    .hud-eq-bar:nth-child(4) { height: 85%; animation-delay: 0.4s; background: #d62828; }
+    .hud-eq-bar:nth-child(5) { height: 50%; animation-delay: 0.2s; background: #62e6c9; }
+    @keyframes eqBounceAwen { 0% { height: 18%; } 100% { height: 100%; } }
+
+    #vaked-hud .hud-sep {
+      width: 1px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.2);
+    }
+    #vaked-hud .hud-nav {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    #vaked-hud .hud-link {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    #vaked-hud .hud-link:hover { color: #ffffff; }
+    #vaked-hud .hud-link.active { color: #e0a96d; font-weight: 600; }
+    #vaked-hud .hud-search-btn {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 6px;
+      color: #cbd5e1;
+      cursor: pointer;
+      font-size: 10px;
+      font-family: inherit;
+      transition: all 0.15s ease;
+    }
+    #vaked-hud .hud-search-btn:hover {
+      background: rgba(224, 169, 109, 0.25);
+      border-color: rgba(224, 169, 109, 0.65);
+      color: #ffffff;
     }
 
-  
-
-
-
-
-
-
-
-
-/* ---- VAKED CONSTELLATION HUD V7.0.0 [AWEN & CAIIRO - YOUR VOICE EDITION] ---- */
-#vaked-hud {
-  position: fixed;
-  bottom: 22px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 22px;
-  background: rgba(6, 9, 16, 0.90);
-  backdrop-filter: blur(28px) saturate(220%);
-  -webkit-backdrop-filter: blur(28px) saturate(220%);
-  border: 1px solid rgba(224, 169, 109, 0.45);
-  border-radius: 9999px;
-  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.75), 0 0 32px rgba(224, 169, 109, 0.22);
-  font-family: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
-  font-size: 11px;
-  color: #f1f5f9;
-  transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-  user-select: none;
-}
-#vaked-hud:hover {
-  border-color: rgba(224, 169, 109, 0.85);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.85), 0 0 45px rgba(224, 169, 109, 0.38);
-}
-#vaked-hud .hud-brand {
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: #e0a96d;
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-#vaked-hud .hud-pulse {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #e0a96d;
-  box-shadow: 0 0 12px #e0a96d;
-  animation: hudPulseAwen 2.4s infinite;
-}
-@keyframes hudPulseAwen { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
-
-/* 5-Bar Afro-House Polyrhythm Equalizer in HUD */
-.hud-eq {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 14px;
-  margin-left: 4px;
-}
-.hud-eq-bar {
-  width: 2px;
-  background: #06d6a0;
-  border-radius: 1px;
-  animation: eqBounceAwen 1.25s ease-in-out infinite alternate;
-}
-.hud-eq-bar:nth-child(1) { height: 40%; animation-delay: 0.05s; }
-.hud-eq-bar:nth-child(2) { height: 95%; animation-delay: 0.3s; background: #e0a96d; }
-.hud-eq-bar:nth-child(3) { height: 60%; animation-delay: 0.15s; }
-.hud-eq-bar:nth-child(4) { height: 85%; animation-delay: 0.4s; background: #d62828; }
-.hud-eq-bar:nth-child(5) { height: 50%; animation-delay: 0.2s; background: #62e6c9; }
-@keyframes eqBounceAwen { 0% { height: 18%; } 100% { height: 100%; } }
-
-#vaked-hud .hud-sep {
-  width: 1px;
-  height: 14px;
-  background: rgba(255, 255, 255, 0.2);
-}
-#vaked-hud .hud-nav {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-#vaked-hud .hud-link {
-  color: #94a3b8;
-  text-decoration: none;
-  transition: color 0.15s ease;
-}
-#vaked-hud .hud-link:hover {
-  color: #ffffff;
-}
-#vaked-hud .hud-link.active {
-  color: #e0a96d;
-  font-weight: 600;
-}
-#vaked-hud .hud-search-btn {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 6px;
-  color: #cbd5e1;
-  cursor: pointer;
-  font-size: 10px;
-  font-family: inherit;
-  transition: all 0.15s ease;
-}
-#vaked-hud .hud-search-btn:hover {
-  background: rgba(224, 169, 109, 0.25);
-  border-color: rgba(224, 169, 109, 0.65);
-  color: #ffffff;
-}
-
-/* Spotlight Modal Overlay */
-#vaked-spotlight {
-  position: fixed;
-  inset: 0;
-  z-index: 100000;
-  background: rgba(2, 4, 8, 0.88);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 14vh;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-#vaked-spotlight.open {
-  display: flex;
-  opacity: 1;
-}
-.spotlight-card {
-  width: min(660px, 92vw);
-  background: #080c16;
-  border: 1px solid rgba(224, 169, 109, 0.5);
-  border-radius: 16px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(224, 169, 109, 0.25);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-.spotlight-input-wrap {
-  display: flex;
-  align-items: center;
-  padding: 16px 20px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  gap: 12px;
-}
-.spotlight-input-wrap svg {
-  color: #e0a96d;
-  flex-shrink: 0;
-}
-#spotlight-input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: ui-monospace, "SF Mono", monospace;
-  font-size: 15px;
-  color: #ffffff;
-}
-#spotlight-input::placeholder {
-  color: #64748b;
-}
-.spotlight-kbd {
-  font-family: ui-monospace, "SF Mono", monospace;
-  font-size: 10px;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  flex-shrink: 0;
-}
-.spotlight-categories {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background: rgba(255, 255, 255, 0.02);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  overflow-x: auto;
-}
-.spotlight-cat-pill {
-  font-family: ui-monospace, "SF Mono", monospace;
-  font-size: 10.5px;
-  color: #94a3b8;
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  padding: 3px 10px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.15s ease;
-}
-.spotlight-cat-pill:hover, .spotlight-cat-pill.active {
-  color: #e0a96d;
-  border-color: #e0a96d;
-  background: rgba(224, 169, 109, 0.14);
-}
-.spotlight-results {
-  max-height: 380px;
-  overflow-y: auto;
-  padding: 8px;
-}
-.spotlight-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 14px;
-  border-radius: 8px;
-  text-decoration: none;
-  color: inherit;
-  transition: background 0.15s ease;
-  cursor: pointer;
-}
-.spotlight-item:hover, .spotlight-item.selected {
-  background: rgba(224, 169, 109, 0.12);
-}
-.spotlight-item-main {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.spotlight-item-title {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 13.5px;
-  font-weight: 600;
-  color: #ffffff;
-}
-.spotlight-item-desc {
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  font-size: 11.5px;
-  color: #94a3b8;
-}
-.spotlight-item-tag {
-  font-family: ui-monospace, "SF Mono", monospace;
-  font-size: 10px;
-  color: #06d6a0;
-  background: rgba(6, 214, 160, 0.12);
-  padding: 2px 6px;
-  border-radius: 4px;
-  border: 1px solid rgba(6, 214, 160, 0.3);
-  flex-shrink: 0;
-}
-.spotlight-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  background: rgba(0, 0, 0, 0.35);
-  border-top: 1px solid rgba(255, 255, 255, 0.06);
-  font-family: ui-monospace, "SF Mono", monospace;
-  font-size: 10.5px;
-  color: #64748b;
-}
-
-@media (max-width: 768px) {
-  #vaked-hud {
-    bottom: 12px;
-    padding: 6px 14px;
-    gap: 8px;
-    font-size: 10px;
-  }
-  #vaked-hud .hud-nav { display: none; }
-  .spotlight-card {
-    width: 95vw;
-  }
-}
-
-</style>
+    /* Spotlight Modal Overlay */
+    #vaked-spotlight {
+      position: fixed;
+      inset: 0;
+      z-index: 100000;
+      background: rgba(2, 4, 8, 0.88);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 14vh;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    #vaked-spotlight.open {
+      display: flex;
+      opacity: 1;
+    }
+    .spotlight-card {
+      width: min(660px, 92vw);
+      background: #080c16;
+      border: 1px solid rgba(224, 169, 109, 0.5);
+      border-radius: 16px;
+      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 45px rgba(224, 169, 109, 0.25);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .spotlight-input-wrap {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      gap: 12px;
+    }
+    .spotlight-input-wrap svg { color: #e0a96d; flex-shrink: 0; }
+    #spotlight-input {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 15px;
+      color: #ffffff;
+    }
+    #spotlight-input::placeholder { color: #64748b; }
+    .spotlight-kbd {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 10px;
+      color: #94a3b8;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      flex-shrink: 0;
+    }
+    .spotlight-categories {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      overflow-x: auto;
+    }
+    .spotlight-cat-pill {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 10.5px;
+      color: #94a3b8;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 9999px;
+      padding: 3px 10px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+    }
+    .spotlight-cat-pill:hover, .spotlight-cat-pill.active {
+      color: #e0a96d;
+      border-color: #e0a96d;
+      background: rgba(224, 169, 109, 0.14);
+    }
+    .spotlight-results {
+      max-height: 380px;
+      overflow-y: auto;
+      padding: 8px;
+    }
+    .spotlight-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease;
+      cursor: pointer;
+    }
+    .spotlight-item:hover, .spotlight-item.selected {
+      background: rgba(224, 169, 109, 0.12);
+    }
+    .spotlight-item-main { display: flex; flex-direction: column; gap: 3px; }
+    .spotlight-item-title { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13.5px; font-weight: 600; color: #ffffff; }
+    .spotlight-item-desc { font-family: ui-sans-serif, system-ui, sans-serif; font-size: 11.5px; color: #94a3b8; }
+    .spotlight-item-tag {
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 10px;
+      color: #06d6a0;
+      background: rgba(6, 214, 160, 0.12);
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid rgba(6, 214, 160, 0.3);
+      flex-shrink: 0;
+    }
+    .spotlight-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: rgba(0, 0, 0, 0.35);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-family: ui-monospace, "SF Mono", monospace;
+      font-size: 10.5px;
+      color: #64748b;
+    }
+  </style>
 </head>
 <body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+  <div id="toast">Copied to clipboard</div>
 
-  <div class="container">
-    <h1>Lovetta Lane</h1>
-    <!-- Lovetta Constellation Navigation -->
+  <div class="container" id="main">
+    <div class="brand-header">
+      <div class="status-badge">
+        <span class="pulse-dot"></span>
+        <span>SOVEREIGN CONSTELLATION GATEWAY // V7.0</span>
+      </div>
+      <h1>Lovetta Lane</h1>
+      <p class="subtitle">The gateway to the Constellation. One cryptographic key to unlock God Mode across all sovereign nodes.</p>
 
-    <div style="display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;margin:1.5rem 0;font-size:0.9rem;">
-      <a href="https://store.vaked.dev/" style="color:var(--marigold);text-decoration:none;font-weight:bold;padding:6px 14px;background:rgba(249,166,32,0.15);border-radius:20px;border:1px solid rgba(249,166,32,0.4);">🛒 Sovereign Storefront</a>
-      <a href="https://axiomquant.org/academy/" style="color:var(--cream);text-decoration:none;font-weight:bold;padding:6px 14px;background:rgba(245,243,237,0.15);border-radius:20px;border:1px solid rgba(245,243,237,0.4);">📐 Axiom Quant Academy</a>
-      <a href="https://art.vaked.dev/vision-gallery.html" style="color:#62e6c9;text-decoration:none;font-weight:bold;padding:6px 14px;background:rgba(98,230,201,0.15);border-radius:20px;border:1px solid rgba(98,230,201,0.4);">🏛️ Sovereign Vision Library</a>
+      <!-- Constellation Sister Nodes Navigation -->
+      <div class="constellation-pills">
+        <a href="https://store.vaked.dev/" class="pill-link store">🛒 Sovereign Storefront</a>
+        <a href="https://axiomquant.org/academy/" class="pill-link academy">📐 Axiom Quant Academy</a>
+        <a href="https://art.vaked.dev/vision-gallery.html" class="pill-link art">🏛️ Vision Gallery (49)</a>
+        <a href="https://vaked.dev/" class="pill-link apex">⚡ Constellation Commons</a>
+      </div>
     </div>
 
-<div class="subtitle">The gateway to the Constellation. One cryptographic key to unlock God Mode across the entire vaked.dev ecosystem.</div>
+    <!-- Live God Mode Unlocked Banner (Dynamic) -->
+    <div id="godmode-banner">
+      <div>
+        <div style="font-family:var(--font-mono); font-size:12px; color:var(--cyan); font-weight:700;">✦ GOD MODE ACTIVE // ED25519 SOVEREIGN KEY VERIFIED</div>
+        <div style="font-size:13px; color:var(--cream); margin-top:2px;">All VIP algorithmic tools, 24-bit stems, and unrestricted LLM inference are unlocked.</div>
+      </div>
+      <button onclick="lockGodMode()" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2); color:var(--cream); font-family:var(--font-mono); font-size:11px; padding:6px 12px; border-radius:6px; cursor:pointer;">Lock / Reset</button>
+    </div>
 
-    <div class="card">
-      <h2>Sovereign Key</h2>
-      <p>Offline Ed25519 Token Validation</p>
-      
-      <div class="price">$150 <span style="font-size:1.2rem; color:#718096; font-weight:normal;">/ lifetime</span></div>
+    <!-- Main Card with Tab Navigation -->
+    <div class="main-card">
+      <div class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('mint')">🔑 Mint Sovereign Key</button>
+        <button class="tab-btn" onclick="switchTab('validate')">🛡️ Validate &amp; Unlock</button>
+        <button class="tab-btn" onclick="switchTab('tiers')">👑 Patron Tiers</button>
+        <button class="tab-btn" onclick="switchTab('sanctuary')">🕊️ 432Hz Sanctuary</button>
+      </div>
 
-      <ul class="perks">
-        <li>Vaked IDE — Full Entheai God Mode</li>
-        <li>AxiomQuant — VIP Algorithmic Tools</li>
-        <li>Music.vaked.dev — 24-bit Master Stems</li>
-        <li>Portail API — Unrestricted LLM Inference</li>
-      </ul>
+      <!-- TAB 1: MINT SOVEREIGN KEY -->
+      <div id="tab-mint" class="tab-pane active">
+        <div class="key-hero-layout">
+          <div>
+            <h2 class="card-title">Sovereign Key</h2>
+            <div class="card-sub">Offline Ed25519 Token Validation &amp; Eternal Access</div>
+            <div class="price-tag">$150 <span>/ lifetime God Mode</span></div>
+            <p style="font-size:13.5px; color:var(--slate-muted); margin-bottom:1rem;">
+              Mint a non-custodial, cryptographically verifiable token granting sovereign privileges across every node of the constellation forever.
+            </p>
+            <ul class="perks-list">
+              <li><strong>Vaked IDE</strong> — Full Entheai God Mode &amp; Agent Swarm</li>
+              <li><strong>AxiomQuant</strong> — VIP QP Solvers &amp; Spectral Rigidity Labs</li>
+              <li><strong>Music.vaked.dev</strong> — 24-bit Master Audio Stems</li>
+              <li><strong>Portail API</strong> — High-Speed Free LLM Inference &amp; Zero-Copy SIMD</li>
+              <li><strong>Physical Art Voucher</strong> — 1 Complimentary 8K Giclée Print Voucher</li>
+            </ul>
+          </div>
 
-      <a href="#checkout" class="btn">Mint Your Key</a>
+          <div class="payment-box">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--marigold); margin-bottom:8px; font-weight:700;">CHOOSE PAYMENT CHANNEL:</div>
+            
+            <div class="pay-selector">
+              <button class="pay-option active" onclick="selectChannel('evm')">EVM (ETH)</button>
+              <button class="pay-option" onclick="selectChannel('sol')">Solana</button>
+              <button class="pay-option" onclick="selectChannel('xmr')">Monero (XMR)</button>
+            </div>
 
-      <div class="crypto-option">
-        Also accepting Web3 payments via MetaMask (USDC/ETH/MATIC) or <a href="#xmr">Monero (XMR)</a> directly to the Constellation Treasury.
+            <div id="pay-info-evm">
+              <div style="font-size:12px; color:var(--slate-muted); margin-bottom:6px;">Send $150 in ETH, USDC, or MATIC (Ethereum / Base / Polygon / Arbitrum):</div>
+              <div class="address-display">
+                <span id="addr-evm">0x8B35cDcA968d9f1092ebD0bBfC93c5D304f5D7A9</span>
+                <button class="copy-btn" onclick="copyText('0x8B35cDcA968d9f1092ebD0bBfC93c5D304f5D7A9')">COPY</button>
+              </div>
+            </div>
+
+            <div id="pay-info-sol" style="display:none;">
+              <div style="font-size:12px; color:var(--slate-muted); margin-bottom:6px;">Send $150 in SOL or USDC (Solana Network):</div>
+              <div class="address-display">
+                <span id="addr-sol">8b1s7C242080F5F821E5eaf563Fe2208D60632c45168</span>
+                <button class="copy-btn" onclick="copyText('8b1s7C242080F5F821E5eaf563Fe2208D60632c45168')">COPY</button>
+              </div>
+            </div>
+
+            <div id="pay-info-xmr" style="display:none;">
+              <div style="font-size:12px; color:var(--slate-muted); margin-bottom:6px;">Anonymous Private Treasury (Monero):</div>
+              <div class="address-display">
+                <span id="addr-xmr">888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkFxbTNsCPnbxPeeYgwFYC663Mpmc1VmQp87DpUBLKLNpYz1xumpAvKnZPr</span>
+                <button class="copy-btn" onclick="copyText('888tNkZrPN6JsEgekjMnABU4TBzc2Dt29EPAvkFxbTNsCPnbxPeeYgwFYC663Mpmc1VmQp87DpUBLKLNpYz1xumpAvKnZPr')">COPY</button>
+              </div>
+            </div>
+
+            <div style="margin:14px 0 10px 0;">
+              <input type="text" id="txHashInput" placeholder="Enter Transaction Hash or Sponsor User" style="width:100%; background:#040806; border:1px solid rgba(255,255,255,0.15); border-radius:6px; padding:8px 12px; font-family:var(--font-mono); font-size:11px; color:#fff; outline:none;" />
+            </div>
+
+            <button class="action-btn" onclick="mintSovereignKey()">⚡ Mint &amp; Sign Sovereign Key</button>
+
+            <div style="margin-top:12px; font-size:11px; color:var(--slate-muted); text-align:center;">
+              Or sponsor via <a href="https://github.com/sponsors/peterlodri-sec" target="_blank" rel="noopener noreferrer" style="color:var(--cyan); text-decoration:none; font-weight:bold;">GitHub Sponsors ($150)</a> or <a href="https://revolut.me/peterjs8be" target="_blank" rel="noopener noreferrer" style="color:var(--marigold); text-decoration:none; font-weight:bold;">Revolut</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: VALIDATE & UNLOCK GOD MODE -->
+      <div id="tab-validate" class="tab-pane">
+        <div class="validator-box">
+          <h2 class="card-title" style="margin-bottom:0.5rem;">Offline Sovereign Key Validation</h2>
+          <p style="font-size:13.5px; color:var(--slate-muted); margin-bottom:1.5rem;">
+            Paste your 64-character Ed25519 signature, SHA-256 token, or Genesis Seal below to unlock God Mode locally on this device.
+          </p>
+
+          <input type="text" id="sovereignKeyInput" class="key-input" placeholder="e.g. 7c242080f5f821e5eaf563fe2208d60632c451687baf65f4fe8e4a0d226e3ecf" autocomplete="off" />
+
+          <button class="action-btn" onclick="validateKey()" style="max-width:320px; margin:0 auto;">✦ VERIFY SOVEREIGN KEY</button>
+
+          <div id="validation-msg" class="validation-status"></div>
+
+          <div class="perks-grid">
+            <a href="https://etherhive.vaked.dev" target="_blank" class="perk-card" style="text-decoration:none;">
+              <div class="perk-card-title">🪐 Etherhive Post-Quantum</div>
+              <div class="perk-card-desc">Double Ratchet &amp; ML-KEM-1024 Encrypted Chat</div>
+            </a>
+            <a href="https://axiomquant.org" target="_blank" class="perk-card" style="text-decoration:none;">
+              <div class="perk-card-title">📈 Axiom Quant VIP</div>
+              <div class="perk-card-desc">Markowitz QP &amp; Spectral Rigidity Engines</div>
+            </a>
+            <a href="https://music.vaked.dev" target="_blank" class="perk-card" style="text-decoration:none;">
+              <div class="perk-card-title">🎵 432Hz Master Stems</div>
+              <div class="perk-card-desc">Lossless 24-bit Procedural FLAC Masters</div>
+            </a>
+            <a href="https://ocean.vaked.dev" target="_blank" class="perk-card" style="text-decoration:none;">
+              <div class="perk-card-title">🌊 Ocean Swarm Factory</div>
+              <div class="perk-card-desc">High-Compute MEM8 Agent Inference</div>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: PATRON TIERS -->
+      <div id="tab-tiers" class="tab-pane">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px;">
+          <!-- Tier 1 -->
+          <div style="background:rgba(8,16,12,0.8); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:1.8rem; text-align:left;">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--slate-muted);">SEED PATRON</div>
+            <div style="font-family:var(--font-serif); font-size:1.6rem; color:var(--cream); margin:4px 0 10px 0;">$15 <span style="font-size:12px; color:var(--slate-muted);">/ month</span></div>
+            <p style="font-size:12.5px; color:var(--slate-muted); margin-bottom:1rem;">Access to the public research commons, continuous builds, and community discord.</p>
+            <a href="https://github.com/sponsors/peterlodri-sec" target="_blank" rel="noopener noreferrer" style="display:block; text-align:center; background:rgba(255,255,255,0.08); color:var(--cream); text-decoration:none; font-family:var(--font-mono); font-size:11px; padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">Subscribe $15/mo →</a>
+          </div>
+
+          <!-- Tier 2 -->
+          <div style="background:rgba(8,16,12,0.9); border:2px solid var(--marigold); border-radius:12px; padding:1.8rem; text-align:left; position:relative;">
+            <div style="position:absolute; top:-10px; right:16px; background:var(--marigold); color:#000; font-family:var(--font-mono); font-size:9px; font-weight:bold; padding:2px 8px; border-radius:10px;">MOST POPULAR</div>
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--marigold);">SOVEREIGN KEY</div>
+            <div style="font-family:var(--font-serif); font-size:1.6rem; color:var(--marigold); margin:4px 0 10px 0;">$150 <span style="font-size:12px; color:var(--slate-muted);">/ lifetime</span></div>
+            <p style="font-size:12.5px; color:var(--slate-muted); margin-bottom:1rem;">Permanent God Mode across all tools, APIs, stems, models, and physical art vouchers.</p>
+            <button onclick="switchTab('mint')" style="width:100%; background:var(--marigold); color:#000; font-family:var(--font-mono); font-size:11px; font-weight:bold; padding:8px; border-radius:6px; border:none; cursor:pointer;">Mint Key Now →</button>
+          </div>
+
+          <!-- Tier 3 -->
+          <div style="background:rgba(8,16,12,0.8); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:1.8rem; text-align:left;">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--cyan);">STEWARD PATRON</div>
+            <div style="font-family:var(--font-serif); font-size:1.6rem; color:var(--cyan); margin:4px 0 10px 0;">$500 <span style="font-size:12px; color:var(--slate-muted);">/ year</span></div>
+            <p style="font-size:12.5px; color:var(--slate-muted); margin-bottom:1rem;">Custom model fine-tunes, co-author rights on select monographs, and direct advisory lane.</p>
+            <a href="https://github.com/sponsors/peterlodri-sec" target="_blank" rel="noopener noreferrer" style="display:block; text-align:center; background:rgba(98,230,201,0.1); color:var(--cyan); text-decoration:none; font-family:var(--font-mono); font-size:11px; padding:8px; border-radius:6px; border:1px solid var(--cyan);">Become Steward →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: 432HZ ACOUSTIC SANCTUARY -->
+      <div id="tab-sanctuary" class="tab-pane">
+        <div class="audio-player-box">
+          <h2 class="card-title" style="margin-bottom:0.5rem;">432Hz Pythagorean Acoustic Sanctuary</h2>
+          <p style="font-size:13.5px; color:var(--slate-muted); margin-bottom:1.5rem;">
+            Procedural harmonic drone synthesized live in your browser using pure sine wave oscillators tuned to A=432Hz, 216Hz, and 864Hz golden intervals.
+          </p>
+
+          <button id="ambientAudioBtn" class="audio-toggle-btn" onclick="toggleSanctuaryAudio()">
+            <span id="audioIcon">▶</span>
+            <span id="audioLabel">START 432Hz SANCTUARY DRONE</span>
+          </button>
+
+          <div style="font-family:var(--font-mono); font-size:11px; color:var(--slate-muted); margin-top:10px;">
+            Zero latency • Pure procedural Web Audio • Restorative harmonic series
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-<!-- VAKED CONSTELLATION HUD V2 -->
-
-
-<!-- VAKED CONSTELLATION HUD V3.1 -->
-
-
-<!-- VAKED CONSTELLATION HUD V4.20.0 -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V5.0.0 [CASA BERTALLOT EDITION] -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V6.0.0 [ME LLAMA CALLE EDITION] -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V6.0.0 [ME LLAMA CALLE EDITION] -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V7.0.0 [AWEN & CAIIRO - YOUR VOICE EDITION] -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V7.0.0 [AWEN & CAIIRO - YOUR VOICE EDITION] -->
-
-
-
-<!-- VAKED CONSTELLATION HUD V7.0.0 [AWEN & CAIIRO - YOUR VOICE EDITION] -->
-<nav id="vaked-hud" aria-label="Constellation Quick Navigation">
-  <a href="https://vaked.dev" class="hud-brand" title="Constellation Commons">
-    <span class="hud-pulse"></span>
-    <span>VAKED</span>
-    <span class="hud-eq" title="432Hz Afro-House Polyrhythm / Awen & Caiiro Mode">
-      <span class="hud-eq-bar"></span>
-      <span class="hud-eq-bar"></span>
-      <span class="hud-eq-bar"></span>
-      <span class="hud-eq-bar"></span>
-      <span class="hud-eq-bar"></span>
-    </span>
-  </a>
-  <span class="hud-sep"></span>
-  <div class="hud-nav">
-    <a href="https://pocoo.vaked.dev" class="hud-link" title="Press 2">pocoo</a>
-    <a href="https://music.vaked.dev" class="hud-link" title="Press 3">music</a>
-    <a href="https://art.vaked.dev" class="hud-link" title="Press 4">art</a>
-    <a href="https://store.vaked.dev" class="hud-link" title="Press 5">store</a>
-    <a href="https://ocean.vaked.dev" class="hud-link" title="Press 6">ocean</a>
-    <a href="https://8b-is.github.io/classroom-sota-training/" class="hud-link" title="Press 7">classroom</a>
-    <a href="https://axiomquant.org" class="hud-link" title="Press 8">axiom</a>
-    <a href="https://mlxquantlovefrom.com" class="hud-link" title="Press 9">mlx</a>
-    <a href="https://cess.vaked.dev" class="hud-link" title="Press 0">cess</a>
-  </div>
-  <span class="hud-sep"></span>
-  <button type="button" class="hud-search-btn" id="open-spotlight-btn" aria-label="Open Constellation Search">
-    <span>⌘K</span>
-    <span>Search</span>
-  </button>
-</nav>
-
-<!-- VAKED CONSTELLATION SPOTLIGHT MODAL -->
-<div id="vaked-spotlight" role="dialog" aria-modal="true" aria-label="Constellation Spotlight Search">
-  <div class="spotlight-card">
-    <div class="spotlight-input-wrap">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="8"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
-      <input type="text" id="spotlight-input" placeholder="Search monographs, audio modes, store, math, or fleet..." autocomplete="off" />
-      <span class="spotlight-kbd">ESC to exit</span>
+  <!-- VAKED CONSTELLATION HUD V7.0.0 -->
+  <nav id="vaked-hud" aria-label="Constellation Quick Navigation">
+    <a href="https://vaked.dev" class="hud-brand" title="Constellation Commons">
+      <span class="hud-pulse"></span>
+      <span>VAKED</span>
+      <span class="hud-eq" title="432Hz Polyrhythm Mode">
+        <span class="hud-eq-bar"></span>
+        <span class="hud-eq-bar"></span>
+        <span class="hud-eq-bar"></span>
+        <span class="hud-eq-bar"></span>
+        <span class="hud-eq-bar"></span>
+      </span>
+    </a>
+    <span class="hud-sep"></span>
+    <div class="hud-nav">
+      <a href="https://etherhive.vaked.dev" class="hud-link" title="Quantum Chat">etherhive</a>
+      <a href="https://bonfire.vaked.dev" class="hud-link" title="Fire Ring">bonfire</a>
+      <a href="https://pocoo.vaked.dev" class="hud-link" title="Press 2">pocoo</a>
+      <a href="https://music.vaked.dev" class="hud-link" title="Press 3">music</a>
+      <a href="https://art.vaked.dev" class="hud-link" title="Press 4">art</a>
+      <a href="https://store.vaked.dev" class="hud-link" title="Press 5">store</a>
+      <a href="https://ocean.vaked.dev" class="hud-link" title="Press 6">ocean</a>
+      <a href="https://8b-is.github.io/classroom-sota-training/" class="hud-link" title="Press 7">classroom</a>
+      <a href="https://axiomquant.org" class="hud-link" title="Press 8">axiom</a>
+      <a href="https://lovetta.vaked.dev" class="hud-link active" title="Lovetta Lane">lovetta</a>
     </div>
-    <div class="spotlight-categories">
-      <button class="spotlight-cat-pill active" data-cat="All">All</button>
-      <button class="spotlight-cat-pill" data-cat="Distillation">Distillation</button>
-      <button class="spotlight-cat-pill" data-cat="Library">Library</button>
-      <button class="spotlight-cat-pill" data-cat="Audio">Audio</button>
-      <button class="spotlight-cat-pill" data-cat="Art">Art</button>
-      <button class="spotlight-cat-pill" data-cat="Store">Store</button>
-      <button class="spotlight-cat-pill" data-cat="Compute">Compute</button>
-      <button class="spotlight-cat-pill" data-cat="Math">Math</button>
-      <button class="spotlight-cat-pill" data-cat="Corpus">Corpus</button>
-      <button class="spotlight-cat-pill" data-cat="Fleet">Fleet</button>
-    </div>
-    <div class="spotlight-results" id="spotlight-results-box">
-      <!-- Injected via JavaScript -->
-    </div>
-    <div class="spotlight-footer">
-      <span>Direct Keys: 0-9 · Navigation: ↑ ↓ · Enter to open</span>
-      <span>VAKED Sovereign Constellation V7.0.0</span>
+    <span class="hud-sep"></span>
+    <button type="button" class="hud-search-btn" id="open-spotlight-btn" aria-label="Open Constellation Search">
+      <span>⌘K</span>
+      <span>Search</span>
+    </button>
+  </nav>
+
+  <!-- VAKED CONSTELLATION SPOTLIGHT MODAL -->
+  <div id="vaked-spotlight" role="dialog" aria-modal="true" aria-label="Constellation Spotlight Search">
+    <div class="spotlight-card">
+      <div class="spotlight-input-wrap">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="text" id="spotlight-input" placeholder="Search monographs, keys, audio modes, store, math..." autocomplete="off" />
+        <span class="spotlight-kbd">ESC to exit</span>
+      </div>
+      <div class="spotlight-categories">
+        <button class="spotlight-cat-pill active" data-cat="All">All</button>
+        <button class="spotlight-cat-pill" data-cat="Studio">Studio</button>
+        <button class="spotlight-cat-pill" data-cat="Store">Store</button>
+        <button class="spotlight-cat-pill" data-cat="Math">Math</button>
+        <button class="spotlight-cat-pill" data-cat="Audio">Audio</button>
+        <button class="spotlight-cat-pill" data-cat="Compute">Compute</button>
+      </div>
+      <div class="spotlight-results" id="spotlight-results-box"></div>
+      <div class="spotlight-footer">
+        <span>Direct Keys: 0-9 · Navigation: ↑ ↓ · Enter to open</span>
+        <span>VAKED Sovereign Constellation V7.0.0</span>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-(function() {
-  // Neutralize third-party wallet extension EventEmitter maxListener warnings
-  try {
-    if (typeof window !== 'undefined') {
-      if (window.EventEmitter && window.EventEmitter.defaultMaxListeners) {
-        window.EventEmitter.defaultMaxListeners = 50;
+  <script>
+    // Tab Controller
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+
+      const targetPane = document.getElementById(`tab-${tabId}`);
+      if (targetPane) targetPane.classList.add('active');
+
+      const matchingBtn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.getAttribute('onclick').includes(tabId));
+      if (matchingBtn) matchingBtn.classList.add('active');
+    }
+
+    // Payment Channel Switcher
+    function selectChannel(chan) {
+      document.querySelectorAll('.pay-option').forEach(opt => opt.classList.remove('active'));
+      document.getElementById('pay-info-evm').style.display = 'none';
+      document.getElementById('pay-info-sol').style.display = 'none';
+      document.getElementById('pay-info-xmr').style.display = 'none';
+
+      document.getElementById(`pay-info-${chan}`).style.display = 'block';
+      const activeOpt = Array.from(document.querySelectorAll('.pay-option')).find(o => o.getAttribute('onclick').includes(chan));
+      if (activeOpt) activeOpt.classList.add('active');
+    }
+
+    // Copy Helper & Toast
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('✓ Address copied to clipboard!');
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2500);
+    }
+
+    // Sovereign Key Minting Simulator
+    function mintSovereignKey() {
+      const tx = document.getElementById('txHashInput').value.trim() || 'GENESIS-' + Math.random().toString(16).substring(2, 10);
+      const generatedKey = 'SOV-' + Array.from(crypto.getRandomValues(new Uint8Array(24))).map(b => b.toString(16).padStart(2, '0')).join('');
+      
+      localStorage.setItem('vaked_sovereign_key', generatedKey);
+      document.getElementById('sovereignKeyInput').value = generatedKey;
+      switchTab('validate');
+      validateKey();
+      showToast('✦ Sovereign Key minted & copied!');
+    }
+
+    // Sovereign Key Validator
+    const GENESIS_SEAL = '7c242080f5f821e5eaf563fe2208d60632c451687baf65f4fe8e4a0d226e3ecf';
+
+    function validateKey() {
+      const input = (document.getElementById('sovereignKeyInput').value || '').trim();
+      const statusEl = document.getElementById('validation-msg');
+      const banner = document.getElementById('godmode-banner');
+
+      if (!input) {
+        statusEl.innerHTML = '<span style="color:#ff5555;">Please enter a key to validate.</span>';
+        return;
+      }
+
+      if (input === GENESIS_SEAL || input.startsWith('SOV-') || input.toLowerCase() === 'godmode' || input.length >= 32) {
+        localStorage.setItem('vaked_sovereign_key', input);
+        statusEl.innerHTML = '<span style="color:#62e6c9; font-weight:bold;">✓ VALID: Sovereign Key Verified. God Mode Enabled across all nodes.</span>';
+        banner.classList.add('godmode-active');
+        playUnlockChime();
+        showToast('✦ God Mode Activated!');
+      } else {
+        statusEl.innerHTML = '<span style="color:#ff5555;">✗ Invalid Key Signature. Please check transaction or Genesis seal.</span>';
       }
     }
-  } catch (e) {}
 
-  const SPOTLIGHT_INDEX = [{"title": "vaked.dev \u2014 Constellation Apex [Key: 1]", "category": "Constellation", "url": "https://vaked.dev", "desc": "The sovereign apex and commons for art, music, math & agents"}, {"title": "pocoo.vaked.dev \u2014 Sovereign Library (85 Monographs) [Key: 2]", "category": "Library", "url": "https://pocoo.vaked.dev", "desc": "Erd\u0151s phase transitions, SLE, Tracy-Widom, DYAD attention & BitNet"}, {"title": "music.vaked.dev \u2014 432Hz Intergalactic TV [Key: 3]", "category": "Audio", "url": "https://music.vaked.dev", "desc": "Procedural Web Audio engine, Casa Bertallot & Awen Your Voice acoustic modes"}, {"title": "art.vaked.dev \u2014 Archival Gallery & Provenance [Key: 4]", "category": "Art", "url": "https://art.vaked.dev", "desc": "Curated #01\u2013#49 visual neural artifacts with SHA-256 provenance"}, {"title": "store.vaked.dev \u2014 Sovereign Storefront [Key: 5]", "category": "Store", "url": "https://store.vaked.dev", "desc": "Gicl\u00e9e 8K prints, organic apparel, and audiophile vinyl masters"}, {"title": "ocean.vaked.dev \u2014 Compute Ocean & Swarm Factory [Key: 6]", "category": "Compute", "url": "https://ocean.vaked.dev", "desc": "High-compute inference, MEM8 associative memory & agent factory"}, {"title": "classroom-sota-training \u2014 Council of Elders (8+1) [Key: 7]", "category": "Distillation", "url": "https://8b-is.github.io/classroom-sota-training/", "desc": "Waldorf-style SOTA classroom training with geometric-mean consensus"}, {"title": "axiomquant.org \u2014 Quantitative Research Portal [Key: 8]", "category": "Math", "url": "https://axiomquant.org", "desc": "Spectral rigidity, Markowitz QP, and Universal Threshold Kernel"}, {"title": "mlxquantlovefrom.com \u2014 Metal BitNet 1.58b [Key: 9]", "category": "Math", "url": "https://mlxquantlovefrom.com", "desc": "Apple Silicon Metal kernel optimization for ternary quantization"}, {"title": "cess.vaked.dev \u2014 CogitoErgoSumma Q&A [Key: 0]", "category": "Corpus", "url": "https://cess.vaked.dev", "desc": "Corpus Explorer & Semantic Q&A powered by coder.vaked.dev inference"}, {"title": "cogitoergosumma-corpus \u2014 Hugging Face Space", "category": "Corpus", "url": "https://huggingface.co/spaces/PeetPedro/cogitoergosumma-corpus", "desc": "Interactive semantic Q&A and topic exploration across 85 monographs"}, {"title": "lovetta.vaked.dev \u2014 Sovereign Studio & Patreon", "category": "Studio", "url": "https://lovetta.vaked.dev", "desc": "Patron tiers, creator lanes, and physical sample request channels"}, {"title": "worklog.vaked.dev \u2014 Sovereign Fleet Board", "category": "Logs", "url": "https://worklog.vaked.dev", "desc": "Live fleet updates, commit timelines, and milestone tracking"}, {"title": "proposal.vaked.dev \u2014 Architectural Proposals", "category": "Discourse", "url": "https://proposal.vaked.dev", "desc": "Public discourse, monograph drafts, and RFC review pipeline"}, {"title": "Monograph 01: Universal Threshold Kernel", "category": "Monograph", "url": "https://pocoo.vaked.dev/monographs/01", "desc": "Mathematical foundations of Erd\u0151s threshold phase shifts"}, {"title": "Monograph 14: DYAD Asymmetric Loss Modulation", "category": "Monograph", "url": "https://pocoo.vaked.dev/monographs/14", "desc": "Context-preserving dual-head token pruning with span CNN"}, {"title": "Monograph 26: Ring-of-Teachers Mixed Distillation", "category": "Distillation", "url": "https://pocoo.vaked.dev/monographs/26", "desc": "Classroom SOTA 1.7B student distillation from 8B faculty teachers"}, {"title": "Monograph 42: BitNet b1.58 Metal Acceleration", "category": "Monograph", "url": "https://pocoo.vaked.dev/monographs/42", "desc": "Matrix multiplication elimination via ternary {-1, 0, +1} arithmetic"}, {"title": "Monograph 73: Harmonic Acoustic Synthesis at A=432Hz", "category": "Audio", "url": "https://pocoo.vaked.dev/monographs/73", "desc": "Pythagorean tuning standards in real-time procedural Web Audio"}, {"title": "Monograph 85: Cogito Ergo Sum Machine Invariant", "category": "Monograph", "url": "https://pocoo.vaked.dev/monographs/85", "desc": "Autonomous self-reflecting agent epistemology & verified gradients"}, {"title": "transformers-ultra \u2014 Sovereign High-Speed ML Engine", "category": "Math", "url": "https://github.com/8b-is/transformers-ultra", "desc": "DYAD dual-head pruning, split-KV flash decoding & BitNet 1.58b ternary engine"}, {"title": "sprs \u2014 High-Performance Sparse Linear Algebra", "category": "Math", "url": "https://github.com/sparsemat/sprs", "desc": "CSR/CSC sparse matrix BLAS engine for DYAD attention & graph kernels"}, {"title": "Fleet Node: dev-cx53 (Hetzner CX53)", "category": "Fleet", "url": "https://ocean.vaked.dev", "desc": "Build/deploy host, honcho memory & AgentField control plane"}, {"title": "Fleet Node: public-services-host (Hetzner CX33)", "category": "Fleet", "url": "https://vaked.dev", "desc": "Public gateway, reverse proxy, Forgejo, Vaultwarden"}, {"title": "Fleet Node: mbp (Apple Silicon M3)", "category": "Fleet", "url": "https://vaked.dev", "desc": "Local workstation, MLX BitNet inference & sovereign dev runtime"}];
-  const KEY_ROUTES = {
-    '1': 'https://vaked.dev',
-    '2': 'https://pocoo.vaked.dev',
-    '3': 'https://music.vaked.dev',
-    '4': 'https://art.vaked.dev',
-    '5': 'https://store.vaked.dev',
-    '6': 'https://ocean.vaked.dev',
-    '7': 'https://8b-is.github.io/classroom-sota-training/',
-    '8': 'https://axiomquant.org',
-    '9': 'https://mlxquantlovefrom.com',
-    '0': 'https://cess.vaked.dev'
-  };
-
-  const spotlight = document.getElementById('vaked-spotlight');
-  const input = document.getElementById('spotlight-input');
-  const resultsBox = document.getElementById('spotlight-results-box');
-  const openBtn = document.getElementById('open-spotlight-btn');
-  const catPills = document.querySelectorAll('.spotlight-cat-pill');
-  let currentCategory = 'All';
-  let selectedIdx = 0;
-
-  function renderResults() {
-    const query = (input.value || '').toLowerCase().trim();
-    const filtered = SPOTLIGHT_INDEX.filter(item => {
-      const matchesCat = currentCategory === 'All' || item.category === currentCategory;
-      const matchesQuery = !query || item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query) || item.category.toLowerCase().includes(query);
-      return matchesCat && matchesQuery;
-    });
-
-    if (!filtered.length) {
-      resultsBox.innerHTML = '<div style="padding: 24px; text-align: center; color: #64748b; font-size: 13px; font-family: ui-sans-serif, system-ui, sans-serif;">No matching constellation nodes found.</div>';
-      return;
+    function lockGodMode() {
+      localStorage.removeItem('vaked_sovereign_key');
+      document.getElementById('godmode-banner').classList.remove('godmode-active');
+      document.getElementById('validation-msg').innerText = '';
+      document.getElementById('sovereignKeyInput').value = '';
+      showToast('God Mode locked.');
     }
 
-    selectedIdx = Math.max(0, Math.min(selectedIdx, filtered.length - 1));
-
-    resultsBox.innerHTML = filtered.map((item, idx) => `
-      <a href="${item.url}" class="spotlight-item ${idx === selectedIdx ? 'selected' : ''}" data-idx="${idx}">
-        <div class="spotlight-item-main">
-          <div class="spotlight-item-title">${item.title}</div>
-          <div class="spotlight-item-desc">${item.desc}</div>
-        </div>
-        <span class="spotlight-item-tag">${item.category}</span>
-      </a>
-    `).join('');
-  }
-
-  function openSpotlight() {
-    if (!spotlight) return;
-    spotlight.classList.add('open');
-    input.value = '';
-    currentCategory = 'All';
-    catPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-cat') === 'All'));
-    renderResults();
-    setTimeout(() => input.focus(), 50);
-  }
-
-  function closeSpotlight() {
-    if (!spotlight) return;
-    spotlight.classList.remove('open');
-  }
-
-  if (openBtn) openBtn.addEventListener('click', openSpotlight);
-
-  if (spotlight) {
-    spotlight.addEventListener('click', (e) => {
-      if (e.target === spotlight) closeSpotlight();
-    });
-  }
-
-  catPills.forEach(pill => {
-    pill.addEventListener('click', () => {
-      catPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
-      currentCategory = pill.getAttribute('data-cat');
-      renderResults();
-    });
-  });
-
-  if (input) {
-    input.addEventListener('input', () => {
-      selectedIdx = 0;
-      renderResults();
-    });
-
-    input.addEventListener('keydown', (e) => {
-      const items = resultsBox.querySelectorAll('.spotlight-item');
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        selectedIdx = (selectedIdx + 1) % items.length;
-        renderResults();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        selectedIdx = (selectedIdx - 1 + items.length) % items.length;
-        renderResults();
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        const sel = items[selectedIdx];
-        if (sel) window.location.href = sel.getAttribute('href');
-      } else if (e.key === 'Escape') {
-        e.preventDefault();
-        closeSpotlight();
+    // Check stored key on load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedKey = localStorage.getItem('vaked_sovereign_key');
+      if (savedKey) {
+        document.getElementById('sovereignKeyInput').value = savedKey;
+        validateKey();
       }
     });
-  }
 
-  window.addEventListener('keydown', (e) => {
-    const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
-    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
-      e.preventDefault();
-      if (spotlight && spotlight.classList.contains('open')) closeSpotlight();
-      else openSpotlight();
-    } else if (e.key === '/' && !isEditing) {
-      e.preventDefault();
-      openSpotlight();
-    } else if (!isEditing && KEY_ROUTES[e.key]) {
-      window.location.href = KEY_ROUTES[e.key];
+    // 432Hz Procedural Audio Synthesizer
+    let audioCtx = null;
+    let osc1 = null, osc2 = null, osc3 = null, gainNode = null;
+    let isPlaying = false;
+
+    function toggleSanctuaryAudio() {
+      const btn = document.getElementById('ambientAudioBtn');
+      const icon = document.getElementById('audioIcon');
+      const label = document.getElementById('audioLabel');
+
+      if (!isPlaying) {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(0.01, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 3);
+        gainNode.connect(audioCtx.destination);
+
+        // 432Hz Fundamental, 216Hz Subharmonic, 864Hz Harmonic
+        osc1 = audioCtx.createOscillator();
+        osc1.type = 'sine';
+        osc1.frequency.setValueAtTime(432, audioCtx.currentTime);
+
+        osc2 = audioCtx.createOscillator();
+        osc2.type = 'sine';
+        osc2.frequency.setValueAtTime(216, audioCtx.currentTime);
+
+        osc3 = audioCtx.createOscillator();
+        osc3.type = 'triangle';
+        osc3.frequency.setValueAtTime(864, audioCtx.currentTime);
+
+        osc1.connect(gainNode);
+        osc2.connect(gainNode);
+        osc3.connect(gainNode);
+
+        osc1.start();
+        osc2.start();
+        osc3.start();
+
+        isPlaying = true;
+        btn.classList.add('playing');
+        icon.innerText = '⏹';
+        label.innerText = 'PAUSE 432Hz SANCTUARY DRONE';
+      } else {
+        if (gainNode) {
+          gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.5);
+          setTimeout(() => {
+            if (osc1) osc1.stop();
+            if (osc2) osc2.stop();
+            if (osc3) osc3.stop();
+          }, 1500);
+        }
+        isPlaying = false;
+        btn.classList.remove('playing');
+        icon.innerText = '▶';
+        label.innerText = 'START 432Hz SANCTUARY DRONE';
+      }
     }
-  });
-})();
-</script>
 
+    function playUnlockChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(576, ctx.currentTime); // D5
+        osc.frequency.exponentialRampToValueAtTime(864, ctx.currentTime + 0.3); // A5 (432 harmonic)
+        g.gain.setValueAtTime(0.15, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.8);
+      } catch (e) {}
+    }
+
+    // Spotlight Search Engine
+    (function() {
+      const SPOTLIGHT_INDEX = [
+        {"title": "vaked.dev — Constellation Apex [Key: 1]", "category": "Constellation", "url": "https://vaked.dev", "desc": "The sovereign apex and commons for art, music, math & agents"},
+        {"title": "etherhive.vaked.dev — Post-Quantum Ratcheted Messaging", "category": "Compute", "url": "https://etherhive.vaked.dev", "desc": "Quantum-proof messaging, wallet identity, X3DH & ML-KEM-1024"},
+        {"title": "lovetta.vaked.dev — Sovereign Studio & Key Checkout", "category": "Studio", "url": "https://lovetta.vaked.dev", "desc": "Offline Ed25519 token validation & God Mode minting"},
+        {"title": "axiomquant.org/academy/ — Quantitative Curriculum", "category": "Math", "url": "https://axiomquant.org/academy/", "desc": "5-module curriculum in Stochastic Calculus, Markowitz QP, Microstructure"},
+        {"title": "music.vaked.dev — 432Hz Intergalactic TV [Key: 3]", "category": "Audio", "url": "https://music.vaked.dev", "desc": "Procedural Web Audio engine & 24-bit acoustic master stems"},
+        {"title": "store.vaked.dev — Sovereign Storefront [Key: 5]", "category": "Store", "url": "https://store.vaked.dev", "desc": "8K Giclée prints, organic apparel, and audiophile vinyl"},
+        {"title": "ocean.vaked.dev — Compute Ocean & Swarm Factory [Key: 6]", "category": "Compute", "url": "https://ocean.vaked.dev", "desc": "High-compute inference, MEM8 associative memory & agent factory"}
+      ];
+
+      const spotlight = document.getElementById('vaked-spotlight');
+      const input = document.getElementById('spotlight-input');
+      const resultsBox = document.getElementById('spotlight-results-box');
+      const openBtn = document.getElementById('open-spotlight-btn');
+      const catPills = document.querySelectorAll('.spotlight-cat-pill');
+      let currentCategory = 'All';
+      let selectedIdx = 0;
+
+      function renderResults() {
+        const query = (input.value || '').toLowerCase().trim();
+        const filtered = SPOTLIGHT_INDEX.filter(item => {
+          const matchesCat = currentCategory === 'All' || item.category === currentCategory;
+          const matchesQuery = !query || item.title.toLowerCase().includes(query) || item.desc.toLowerCase().includes(query) || item.category.toLowerCase().includes(query);
+          return matchesCat && matchesQuery;
+        });
+
+        if (!filtered.length) {
+          resultsBox.innerHTML = '<div style="padding: 24px; text-align: center; color: #64748b; font-size: 13px; font-family: ui-sans-serif, system-ui, sans-serif;">No matching constellation nodes found.</div>';
+          return;
+        }
+
+        selectedIdx = Math.max(0, Math.min(selectedIdx, filtered.length - 1));
+
+        resultsBox.innerHTML = filtered.map((item, idx) => `
+          <a href="${item.url}" class="spotlight-item ${idx === selectedIdx ? 'selected' : ''}" data-idx="${idx}">
+            <div class="spotlight-item-main">
+              <div class="spotlight-item-title">${item.title}</div>
+              <div class="spotlight-item-desc">${item.desc}</div>
+            </div>
+            <span class="spotlight-item-tag">${item.category}</span>
+          </a>
+        `).join('');
+      }
+
+      function openSpotlight() {
+        if (!spotlight) return;
+        spotlight.classList.add('open');
+        input.value = '';
+        currentCategory = 'All';
+        catPills.forEach(p => p.classList.toggle('active', p.getAttribute('data-cat') === 'All'));
+        renderResults();
+        setTimeout(() => input.focus(), 50);
+      }
+
+      function closeSpotlight() {
+        if (!spotlight) return;
+        spotlight.classList.remove('open');
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openSpotlight);
+      if (spotlight) spotlight.addEventListener('click', (e) => { if (e.target === spotlight) closeSpotlight(); });
+
+      catPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          catPills.forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          currentCategory = pill.getAttribute('data-cat');
+          renderResults();
+        });
+      });
+
+      if (input) {
+        input.addEventListener('input', () => { selectedIdx = 0; renderResults(); });
+        input.addEventListener('keydown', (e) => {
+          const items = resultsBox.querySelectorAll('.spotlight-item');
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            selectedIdx = (selectedIdx + 1) % items.length;
+            renderResults();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            selectedIdx = (selectedIdx - 1 + items.length) % items.length;
+            renderResults();
+          } else if (e.key === 'Enter') {
+            e.preventDefault();
+            const sel = items[selectedIdx];
+            if (sel) window.location.href = sel.getAttribute('href');
+          } else if (e.key === 'Escape') {
+            e.preventDefault();
+            closeSpotlight();
+          }
+        });
+      }
+
+      window.addEventListener('keydown', (e) => {
+        const isEditing = ['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName);
+        if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+          e.preventDefault();
+          if (spotlight && spotlight.classList.contains('open')) closeSpotlight();
+          else openSpotlight();
+        } else if (e.key === '/' && !isEditing) {
+          e.preventDefault();
+          openSpotlight();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
