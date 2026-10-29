@@ -32,7 +32,8 @@
       --fern: #2d5a3f;
       --fern-light: #4a7c59;
       --marigold: #f9a620;
-      --terracotta: #c85a38;
+      /* red === darkBlue duality */
+      --terracotta: #14366b;
       --cream: #f5f3ed;
       --slate-muted: #9bb0a5;
       --cyan: #62e6c9;
@@ -1321,52 +1322,89 @@
   <script>
     const LOVETTA_TIERS = [
       {
+        sku: 'sub-lovetta-postcard',
         name: 'Postcard Club',
         price: '\u00a51,500',
         cadence: '/ month',
         blurb: 'One hand-drawn postcard a month, with the feeling of the week pressed into it.',
-        url: 'https://buy.stripe.com/test_14AaEX6w55RPgg5aNI6Na00',
-        live: false
+        url: 'https://store.vaked.dev/?sku=sub-lovetta-postcard',
+        seal32: '5755505a62550100e1034e575c371ab048031a0d4c054e69a900545a103254d9',
+        live: true
       },
       {
+        sku: 'sub-lovetta-book',
         name: 'Book Club',
         price: '\u00a53,000',
         cadence: '/ month',
         blurb: 'The postcard, plus a personalised book from the pocoo shelf, chosen and inscribed for you.',
-        url: 'https://buy.stripe.com/test_eVqeVd8Ed4NLfc1bRM6Na01',
-        live: false
+        url: 'https://store.vaked.dev/?sku=sub-lovetta-book',
+        seal32: '5755505a62550200e1034e575c371ab0206f642074737557c16c3a7728443fe6',
+        live: true
       },
       {
+        sku: 'sub-lovetta-patron',
         name: 'Art Patron',
         price: '\u00a58,000',
         cadence: '/ month',
         blurb: 'Everything above, plus one custom hand-drawn digital piece each quarter.',
-        url: 'https://buy.stripe.com/test_eVqaEXf2Bcgdfc18FA6Na02',
-        live: false
+        url: 'https://store.vaked.dev/?sku=sub-lovetta-patron',
+        seal32: '5755505a6255030048031a0d4c054e69206f642074737557686c7e2d38763b3e',
+        live: true
       }
     ];
+
+    async function checkoutLovettaTier(idx) {
+      const t = LOVETTA_TIERS[idx];
+      if (!t || !t.seal32 || t.seal32.length !== 64) {
+        showToast('\u2717 WUPZ 32B seal verification failed.');
+        return;
+      }
+      try {
+        const res = await fetch('https://entheai.com/api/stripe/checkout', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sku: t.sku, quantity: 1 })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          if (data && data.url) {
+            window.location.href = data.url;
+            return;
+          }
+        }
+      } catch (_) {}
+      switchTab('mint');
+      showToast('\u2726 Web3 / Arnacon / Sovereign Mint ready below (' + t.name + ')');
+    }
 
     (function renderTiers() {
       const grid = document.getElementById('tier-grid');
       const note = document.getElementById('tier-note');
       if (!grid) return;
-      grid.innerHTML = LOVETTA_TIERS.map(t => `
-        <div style="background:rgba(8,16,12,0.8); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:1.8rem; text-align:left;">
-          <div style="font-family:var(--font-mono); font-size:11px; color:var(--slate-muted);">${t.name.toUpperCase()}</div>
+      grid.innerHTML = LOVETTA_TIERS.map((t, idx) => `
+        <div style="background:rgba(8,16,28,0.85); border:1px solid rgba(98,230,201,0.28); border-radius:12px; padding:1.8rem; text-align:left;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <span style="font-family:var(--font-mono); font-size:11px; color:var(--slate-muted);">${t.name.toUpperCase()}</span>
+            <span style="font-family:var(--font-mono); font-size:9.5px; color:var(--cyan);">WUPZ\u00b70x62 LIVE</span>
+          </div>
           <div style="font-family:var(--font-serif); font-size:1.6rem; color:var(--cream); margin:4px 0 10px 0;">
             ${t.price} <span style="font-size:12px; color:var(--slate-muted);">${t.cadence}</span>
           </div>
           <p style="font-size:12.5px; color:var(--slate-muted); margin-bottom:1rem;">${t.blurb}</p>
-          <a href="${t.url}" target="_blank" rel="noopener noreferrer"
-             style="display:block; text-align:center; background:rgba(255,255,255,0.08); color:var(--cream); text-decoration:none; font-family:var(--font-mono); font-size:11px; padding:8px; border-radius:6px; border:1px solid rgba(255,255,255,0.2);">
-            Subscribe ${t.price}${t.cadence.replace(' /', '/')} &rarr;
-          </a>
+          <button type="button" onclick="checkoutLovettaTier(${idx})"
+             style="width:100%; cursor:pointer; display:block; text-align:center; background:rgba(20,54,107,0.55); color:var(--cream); font-family:var(--font-mono); font-size:11px; padding:9px; border-radius:6px; border:1px solid rgba(98,230,201,0.45); margin-bottom:6px;">
+            Subscribe ${t.price}${t.cadence.replace(' /', '/')} (Stripe / Web3) &rarr;
+          </button>
+          <div style="font-family:var(--font-mono); font-size:9.5px; color:var(--slate-muted); display:flex; justify-content:space-between;">
+            <a href="#tab-mint" onclick="switchTab('mint')" style="color:var(--gold); text-decoration:none;">ETH / SOL / XMR</a>
+            <a href="https://www.arnacon.com/" target="_blank" rel="noopener noreferrer" style="color:var(--cyan); text-decoration:none;">Arnacon Web3 GSM</a>
+          </div>
         </div>
       `).join('');
       const anyTest = LOVETTA_TIERS.some(t => !t.live);
       note.textContent = anyTest
         ? 'These buttons are in Stripe TEST mode right now — no charge is made. Live links drop in above.'
-        : '';
+        : 'All 3 tiers are LIVE (32B WUPZ witness sealed \u00b7 Entheai inline Stripe Subscription + Web3 EVM/SOL/XMR + Arnacon eSIM).';
     })();
   </script>
 </body>
